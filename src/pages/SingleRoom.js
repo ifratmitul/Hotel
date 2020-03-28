@@ -20,7 +20,7 @@ export default class SingleRoom extends Component {
     render() {
         const {getRoom} = this.context;
         const room = getRoom(this.state.slug);
-        console.log(room)
+        //console.log(room)
         if(!room){
             return (
                 <div className ="error">
@@ -31,7 +31,7 @@ export default class SingleRoom extends Component {
         }
         const {name, description, capacity, size, price, extras, breakfast, pets, images} = room
         const [mainImg, ...defaultImg]= images;
-        console.log(defaultImg)
+        //console.log(defaultImg)
         return (
             <>
             <StyledHero img = {mainImg || this.state.defaultBcg}>
@@ -52,18 +52,18 @@ export default class SingleRoom extends Component {
                 <h3>Details</h3>
                 <p>{description}</p>
                 </article>
-                <article className ='info'>
+            <article className ='info'>
                 <h3>Info</h3>
-            <h6>PRice :${price}</h6>
-            <h6>Size :{size} SQFT</h6>
-            <h6>
-                max capacity : {
-                    capacity > 1 ? `${capacity} people` : `${capacity} person`
-                }
-            </h6>
-            <h6> {pets ? "Pets are allowed" : "No pets are allowed"}</h6>
-            <h6>{breakfast && "Free Breakfast Included"}</h6>
-                </article>
+                <h6>PRice :${price}</h6>
+                <h6>Size :{size} SQFT</h6>
+                <h6>
+                    max capacity : {
+                        capacity > 1 ? `${capacity} people` : `${capacity} person`
+                    }
+                </h6>
+                <h6> {pets ? "Pets are allowed" : "No pets are allowed"}</h6>
+                <h6>{breakfast && "Free Breakfast Included"}</h6>
+            </article>
 
             </div>
 
