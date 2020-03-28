@@ -5,7 +5,6 @@ import Banner from '../components/Banner'
 import {Link} from 'react-router-dom'
 import {RoomContext} from '../Contex'
 import StyledHero from '../components/StyledHero'
-
 export default class SingleRoom extends Component {
     constructor (props){
         super(props)
@@ -31,25 +30,54 @@ export default class SingleRoom extends Component {
             )
         }
         const {name, description, capacity, size, price, extras, breakfast, pets, images} = room
+        const [mainImg, ...defaultImg]= images;
+        console.log(defaultImg)
         return (
             <>
-                <StyledHero img = {images[0] || this.state.defaultBcg}>
-                    <Banner title ={`${name} room`}>
-                    <Link to = "/rooms" className = "btn-primary">Back to rooms</Link>
-                    </Banner>
-                </StyledHero>
-            
-            <section className ="single-room">
-                <div className = "single-room-images">
-                    {images.map((item, index) =>{
-                        return <img key = {index} src = {item} alt = {name}/>
-                    })}
-                     
-                </div>
+            <StyledHero img = {mainImg || this.state.defaultBcg}>
+                <Banner title ={`${name} room`}>
+                <Link to = "/rooms" className = "btn-primary">Back to rooms</Link>
+                </Banner>
+            </StyledHero>
+        
+        <section className ="single-room">
+            <div className = "single-room-images">
+                {defaultImg.map((item, index) =>{
+                    return <img key = {index} src = {item} alt = {name}/>
+                })}
+                 
+            </div>
+            <div className = "single-room-info">
+                <article className = 'desc'>
+                <h3>Details</h3>
+                <p>{description}</p>
+                </article>
+                <article className ='info'>
+                <h3>Info</h3>
+            <h6>PRice :${price}</h6>
+            <h6>Size :{size} SQFT</h6>
+            <h6>
+                max capacity : {
+                    capacity > 1 ? `${capacity} people` : `${capacity} person`
+                }
+            </h6>
+            <h6> {pets ? "Pets are allowed" : "No pets are allowed"}</h6>
+            <h6>{breakfast && "Free Breakfast Included"}</h6>
+                </article>
 
-            </section>
-            </>
+            </div>
+
+        </section>
+        <section className ="room-extras">
+
+                <h6>Extras</h6>
+            <ul className = "extras"> {extras.map((item, index)=>{
+                return <li key = {index}>- {item}</li>
+            })}</ul>
+        </section>
+        </>
+
         )
-
     }
 }
+
