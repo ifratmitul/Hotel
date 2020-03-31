@@ -60,7 +60,7 @@ import Room from './components/Room';
 
      handleChange = event =>{
          const target = event.target;
-         const value = event.type === 'checkbox' ? target.checked : target.value;
+         const value = target.type === 'checkbox' ? target.checked : target.value;
          const name = event.target.name;
          this.setState({
              [name] : value
@@ -90,7 +90,19 @@ import Room from './components/Room';
             price = parseInt(price);
             
             tempRooms =  tempRooms.filter (room => room.price <= price);
+
+            // size = parseInt(size)
+            tempRooms = tempRooms.filter(room => room.size >= minSize && room.size <= maxSize)
             
+            if(breakfast){
+                tempRooms = tempRooms.filter(room => room.breakfast === true)
+
+            }
+
+            if(pets){
+                tempRooms = tempRooms.filter(room => room.pets === true)
+            }
+                
             
             this.setState({
                 sortedRooms : tempRooms
