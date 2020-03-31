@@ -74,17 +74,24 @@ import Room from './components/Room';
             let {
                 rooms, type, capacity, price, minSize , maxSize, breakfast, pets
             } = this.state
-//For the rooms
+            //For the rooms
             let tempRooms = [...rooms];
             //for no of guests 
             capacity =  parseInt(capacity)
             //filter by capacity
+            
             if(capacity !==1){
                 tempRooms = tempRooms.filter(room => room.capacity >= capacity)
             }
             if (type !== 'all'){
                 tempRooms = tempRooms.filter(room => room.type === type)
             }
+
+            price = parseInt(price);
+            
+            tempRooms =  tempRooms.filter (room => room.price <= price);
+            
+            
             this.setState({
                 sortedRooms : tempRooms
             })
