@@ -1,8 +1,17 @@
 import React, { Component } from 'react'
-import items from './data'
-import Room from './components/Room';
+// import items from './data'
+// import Room from './components/Room';
+import Client from './Contentful'
  const RoomContext =  React.createContext();
 
+// Client.getEntries(
+// {    content_type: "beachResort"}
+// ).then((response) => console.log(response.items));
+
+// Client.getSpace('viobxop2ftyp')
+// .then((space) => space.getEntries())
+// .then((response) => console.log(response.items))
+// .catch(console.error)
 
  class RoomProvider extends Component {
      state = {
@@ -23,22 +32,35 @@ import Room from './components/Room';
      }
 
      //getData 
+
+     getData = async () => {
+         try {
+             let response = await Client.getEntries({
+                content_type: "beachResort", 
+                order: "fields.price" 
+             });
+             let rooms = this.formateData(response.items)
+             //console.log(rooms)
+    
+             let maxPrice = Math.max(...rooms.map(item =>item.price));
+             let maxSize = Math.max(...rooms.map(item =>item.size));
+                
+             let featuredRooms = rooms.filter(room => room.featured === true);
+             this.setState({
+                 rooms, featuredRooms, sortedRooms : rooms, 
+                 loading : false,
+                 price : maxPrice,
+                 maxPrice,
+                 maxSize
+             })
+
+         }catch (error){
+             console.log(error)
+         }
+     }
      
      componentDidMount(){
-         let rooms = this.formateData(items)
-         //console.log(rooms)
-
-         let maxPrice = Math.max(...rooms.map(item =>item.price));
-         let maxSize = Math.max(...rooms.map(item =>item.size));
-            
-         let featuredRooms = rooms.filter(room => room.featured === true);
-         this.setState({
-             rooms, featuredRooms, sortedRooms : rooms, 
-             loading : false,
-             price : maxPrice,
-             maxPrice,
-             maxSize
-         })
+        this.getData()
 
      }
 

@@ -11,7 +11,7 @@ export default function RoomFilter({rooms}) {
     } = context
 
     const getUnique = (items, value) =>{
-        return [... new Set(items.map (item => item[value]))]
+        return [...new Set(items.map (item => item[value]))]
     }
     let types = getUnique(rooms, 'type');
     //get all
