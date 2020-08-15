@@ -1,5 +1,8 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+##Visit Demo
+<code> <a href = "https://react-resortbookiing.netlify.app/">Click for Demo</a></code>
+
 ## Available Scripts
 
 In the project directory, you can run:
